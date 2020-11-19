@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 
-
 namespace GitÖvningsuppgift
 {
     class Program
     {
         static void Main(string[] args)
-        {
-            //Titel
+        {   //Titel
             Console.Title = "Movember Assignment";
 
             //Variables            
@@ -17,14 +15,12 @@ namespace GitÖvningsuppgift
             double term2;
             double term3;
             double kalk1 = 0;
-            double sum = 0;
-            int[] sumArray = new int[Convert.ToInt32(sum)];
-
+            double sum = 0;            
+            List<double> sumList = new List<double>();            
             char operator1;
             char operator2;
-
             string answer = "";
-            GrowingArray growingArray = new GrowingArray();
+            bool isRunning = true;
 
             start:
             //Input from user
@@ -42,17 +38,13 @@ namespace GitÖvningsuppgift
             Console.WriteLine();
             Console.Write("Enter third term:  ");
             term3 = Convert.ToDouble(Console.ReadLine());
-            Console.WriteLine();
+            Console.WriteLine();            
             
-            bool isRunning = true;
             while (isRunning == true)
-            {
-
-                //For first part of the equation
+            {   //For first part of the equation
                 bool firstRun = true;
                 while (firstRun == true)
                 {
-
                     if (operator1 == '+')
                     {
                         kalk1 = term1 + term2;                        
@@ -70,44 +62,32 @@ namespace GitÖvningsuppgift
                         kalk1 = term1 / term2;                        
                     }
 
-                    ////////////////////////////////
-
-
+                    //Operator round 2
                     if (operator2 == '+')
                     {
-                        sum = kalk1 + term3;
-                                            
+                        sum = kalk1 + term3;                        
                     }
                     else if (operator2 == '-')
                     {
                         sum = kalk1 - term3;
-                        
-
                     }
                     else if (operator2 == '*')
                     {
                         sum = kalk1 * term3;
-                        
-
                     }
                     else if (operator2 == '/')
                     {
-                        sum = kalk1 / term3;
-                        
+                        sum = kalk1 / term3;                        
                     }
-                    //Converts the terms and sum to string for console
-                    string sTerm1 = Convert.ToString(term1);
-                    string sTerm2 = Convert.ToString(term2);
-                    string sTerm3 = Convert.ToString(term3);
-                    //string sSum = Convert.ToString(sum);
-                    //Displays the calculation to the user
-                    Console.Write(sTerm1 + " " + operator1 + " " + sTerm2 + " " + operator2 + " " + sTerm3 + " = ");
-                    Console.WriteLine(sum);
 
+                    sumList.Add(sum);// Adds the sum the the List
+
+                    //Displays the calculation to the user
+                    Console.Write($"{term1} {operator1} {term2} {operator2} {term3} = {sum}");
+                    
                     break;
                 }
-
-                double listSum = 0;
+                
                 // Checks what the sum was
                 if (sum < 100)
                 {
@@ -116,20 +96,14 @@ namespace GitÖvningsuppgift
                     answer = Console.ReadLine();
                     if (answer == "y")
                     {
-                        Console.WriteLine("You'r answer is yes\n");
-                        goto start;
-                        
+                        Console.WriteLine("You'r answer is yes\n");                        
+                        goto start;                        
                     }
                     else if (answer == "n")
-                    {
-                        
-                        Console.WriteLine("Thank you for playing. The sum of all rounds is: ");                      
-                        
+                    {                        
+                        Console.WriteLine("Thank you for playing. The sum of all rounds is: " + sumList.Sum());
                         break;
-                    }
-                    //else
-                    //    Console.WriteLine("Sorry I did not get that, try again");
-                    //kod som kör loopen igen
+                    }                    
                 }
                 else if (sum == 100)
                 {
@@ -138,13 +112,12 @@ namespace GitÖvningsuppgift
                     answer = Console.ReadLine();
                     if (answer == "y")
                     {
-                        
-                        Console.WriteLine("You'r answer is yes");
+                        Console.WriteLine("You'r answer is yes\n");                        
                         goto start;
                     }
                     else if (answer == "n")
-                    {
-                        Console.WriteLine("Thank you for playing. The sum of all rounds is: " + listSum);
+                    {                        
+                        Console.WriteLine("Thank you for playing. The sum of all rounds is: " + sumList.Sum());
                         break;
                     }
                 }
@@ -155,45 +128,16 @@ namespace GitÖvningsuppgift
                     answer = Console.ReadLine();
                     if (answer == "y")
                     {
-                        
-                        Console.WriteLine("You'r answer is yes");
+                        Console.WriteLine("You'r answer is yes\n");                        
                         goto start;
                     }
                     else if (answer == "n")
-                    {
-                        Console.WriteLine("Thank you for playing. The sum of all rounds is: " + listSum);
+                    {                        
+                        Console.WriteLine("Thank you for playing. The sum of all rounds is: " + sumList.Sum());
                         break;
                     }
                 }
-                
-                
-                
-
             }
-
-            //Så den inte stängs
-            Console.ReadKey(true);
         }
-        static double MyList()
-        {
-            double sum = 0;
-            List<double> listSum = new List<double>();
-
-            for (int i = 0; i < listSum.Count; i++)
-            {
-                listSum.Add(sum);
-                
-                listSum.ToArray();
-            }
-            for (int i = 1; i != listSum.Count; i++)
-            {
-                //sum *= listSum[i];
-                Console.WriteLine();
-                listSum.Sum();
-
-            }
-            return sum;
-        }
-        
     }
 }
